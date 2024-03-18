@@ -294,14 +294,14 @@ load_modules() {
 
 main() {
   local theme
-  theme="$(get_tmux_option "@bamboo_flavour" "dark")"
+  theme="$(get_tmux_option "@bamboo_flavour" "vulgaris")"
 
   # Aggregate all commands in one array
   local tmux_commands=()
 
   # NOTE: Pulling in the selected theme by the theme that's being set as local
   # variables.
-  # shellcheck source=bamboo-frappe.tmuxtheme
+  # shellcheck source=bamboo-vulgaris.tmuxtheme
   # https://github.com/dylanaraps/pure-sh-bible#parsing-a-keyval-file
   while IFS='=' read -r key val; do
       # Skip over lines containing comments.
