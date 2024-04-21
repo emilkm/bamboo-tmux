@@ -499,6 +499,7 @@ set -g @bamboo_date_time_text "%H:%M"
 ```
 ## 💝 Thanks to
 
+- [ribru17](https://github.com/ribru17/bamboo.nvim)
 - [Catppuccin](https://github.com/catppuccin/tmux)
 
 
