@@ -1,7 +1,7 @@
 <h3 align="center">
 	<img src="https://raw.githubusercontent.com/bamboo/bamboo/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
 	<img src="https://raw.githubusercontent.com/bamboo/bamboo/main/assets/misc/transparent.png" height="30" width="0px"/>
-	Bamboo for <a href="https://github.com/tmux/tmux">Tmux</a>
+	bamboo for <a href="https://github.com/tmux/tmux">Tmux</a>
 	<img src="https://raw.githubusercontent.com/bamboo/bamboo/main/assets/misc/transparent.png" height="30" width="0px"/>
 </h3>
 
@@ -18,29 +18,29 @@
 ## Content
 
 1. [Themes](#themes)
-2. [Installation](#installation)
-3. [Overview](#overview)
-4. [Configuration options](#configuration-options)
+1. [Installation](#installation)
+1. [Overview](#overview)
+1. [Configuration options](#configuration-options)
    1. [Window](#window)
-   2. [Window default](#window-default)
-   3. [Window current](#window-current)
-   4. [Status](#status)
-   4. [Pane](#pane)
-   5. [Customizing modules](#customizing-modules)
-   6. [Battery module](#battery-module)
-   7. [CPU module](#CPU-module)
-   8. [Weather module](#weather-module)
-   9. [Load module](#load-module)
-   10. [Uptime module](#uptime-module)
-5. [Create a custom module](#create-a-custom-module)
-6. [Configuration Examples](#configuration-examples)
+   1. [Window default](#window-default)
+   1. [Window current](#window-current)
+   1. [Status](#status)
+   1. [Pane](#pane)
+   1. [Customizing modules](#customizing-modules)
+   1. [Battery module](#battery-module)
+   1. [CPU module](#CPU-module)
+   1. [Weather modules](#weather-modules)
+   1. [Load module](#load-module)
+   1. [Uptime module](#uptime-module)
+1. [Create a custom module](#create-a-custom-module)
+1. [Configuration Examples](#configuration-examples)
    1. [Config 1](#config-1)
-   2. [Config 2](#config-2)
-   3. [Config 3](#config-3)
+   1. [Config 2](#config-2)
+   1. [Config 3](#config-3)
 
 ## Themes
 
-- 🌻 [Vulgaris](./bamboo.tmuxtheme)
+- 🌻 [Vulgaris](./bamboo-vulgaris.tmuxtheme)
 
 ## Installation
 
@@ -50,7 +50,7 @@ If you do not have a patched font installed, you can override or remove any icon
 ### TPM
 
 1. Install [TPM](https://github.com/tmux-plugins/tpm)
-2. Add the Bamboo plugin:
+2. Add the bamboo plugin:
 
 ```bash
 set -g @plugin 'bamboo/tmux'
@@ -61,7 +61,7 @@ set -g @plugin 'tmux-plugins/tpm'
 3. (Optional) Set your preferred flavor, it defaults to `"vulgaris"`:
 
 ```bash
-set -g @bamboo_flavour 'vulgaris' # or multiplex, light
+set -g @bamboo_flavour 'vulgaris' # or TODO: add other flavours
 ```
 
 ### Manual
@@ -81,11 +81,16 @@ This is a diagram of how the theme is split between its components.
 
 ## Configuration options
 
-All flavors support certain levels of customization that match our [Bamboo
+All flavors support certain levels of customization that match our [bamboo
 Style Guide][style-guide]. To add these customizations, add any of the following
 options to your Tmux configuration.
 
 ### Window
+
+### Set the window separator
+```sh
+set -g @bamboo_window_separator ""
+```
 
 #### Set the window left separator:
 ```sh
@@ -218,6 +223,21 @@ set -g @bamboo_pane_active_border_style "fg=red" # Use a value compatible with t
 #### Set the default status bar visibility
 ```sh
 set -g @bamboo_status_default "off" # defaults to "on"
+
+```
+
+#### Override the default status background color
+```sh
+set -g @bamboo_status_background "theme"
+```
+This will overwrite the status bar background:
+- "theme" will use the color from the selected theme
+- "default" will make the status bar transparent
+- use hex color codes for other colors
+
+Note: you need to restart tmux for this to take effect: 
+```sh
+tmux kill-server & tmux
 ```
 
 #### Set the status module left separator:
@@ -229,14 +249,6 @@ set -g @bamboo_status_left_separator ""
 ```sh
 set -g @bamboo_status_right_separator "█"
 ```
-
-#### Set the status module right separator inverse:
-```sh
-set -g @bamboo_status_right_separator_inverse "no"
-```
-Values:
-- yes - the colors will be inverted for the right separator
-- no - the colors will not be inverted for the right separator
 
 #### Set the status connect separator:
 ```sh
@@ -297,6 +309,7 @@ Available modules:
 - user - display the username
 - host - display the hostname
 - date_time - display the date and time
+- uptime - display the uptime
 - [battery](#battery-module) - display the battery
 
 ### Customizing modules
@@ -370,15 +383,17 @@ Add the cpu module to the status modules list.
 set -g @bamboo_status_modules_right "... cpu ..."
 ```
 
-### Weather module
+### Weather modules
 
-#### Requirements
+#### tmux-weather
+
+##### Requirements
 This module depends on [tmux-weather](https://github.com/xamut/tmux-weather).
 
-#### Install
+##### Install
 The preferred way to install tmux-weather is using [TPM](https://github.com/tmux-plugins/tpm).
 
-#### Configure
+##### Configure
 Load tmux-weather after you load bamboo.
 ```sh
 set -g @plugin 'bamboo/tmux'
@@ -389,6 +404,27 @@ set -g @plugin 'xamut/tmux-weather'
 Add the weather module to the status modules list.
 ```sh
 set -g @bamboo_status_modules_right "... weather ..."
+```
+
+#### tmux-clima
+
+##### Requirements
+This module depends on [tmux-clima](https://github.com/vascomfnunes/tmux-clima).
+
+##### Install
+The preferred way to install tmux-clima is using [TPM](https://github.com/tmux-plugins/tpm).
+
+##### Configure
+Load tmux-clima after you load bamboo.
+```sh
+set -g @plugin 'bamboo/tmux'
+...
+set -g @plugin 'vascomfnunes/tmux-clima'
+```
+
+Add the weather module to the status modules list.
+```sh
+set -g @bamboo_status_modules_right "... clima ..."
 ```
 
 ### Load module
@@ -412,27 +448,25 @@ Add the load module to the status modules list.
 set -g @bamboo_status_modules_right "... load ..."
 ```
 
-### Uptime module
+### Gitmux module
 
 #### Requirements
-This module depends on [tmux-uptime](https://github.com/robhurring/tmux-uptime).
+This module depends on [gitmux](https://github.com/arl/gitmux).
 
 #### Install
-The preferred way to install tmux-uptime is using [TPM](https://github.com/tmux-plugins/tpm).
+To install gitmux, follow the instructions in the [gitmux documentation](https://github.com/arl/gitmux/blob/main/README.md#installing).
 
 #### Configure
-Load tmux-uptime after you load bamboo.
-
+Add the gitmux module to the status modules list.
 ```sh
-set -g @plugin 'bamboo/tmux'
-...
-set -g @plugin 'robhurring/tmux-uptime'
+set -g @bamboo_status_modules_right "... gitmux ..."
 ```
 
-Add the uptime module to the status modules list.
+To customize the gitmux module, you can follow the instrucctions in the [gitmux documentation](https://github.com/arl/gitmux/blob/main/README.md#customizing) and add this line in your tmux configuration:
 ```sh
-set -g @bamboo_status_modules_right "... uptime ..."
+set -g @bamboo_gitmux_text "#(gitmux -cfg $HOME/.gitmux.conf \"#{pane_current_path}\")"
 ```
+
 
 ## Create a custom module
 
@@ -453,83 +487,10 @@ tmux kill-server
 To kill the tmux server and clear all global variables.
 
 
-### Config 1
-![Default](./assets/config1.png)
 
-```sh
-set -g @bamboo_window_right_separator "█ "
-set -g @bamboo_window_number_position "right"
-set -g @bamboo_window_middle_separator " | "
-
-set -g @bamboo_window_default_fill "none"
-
-set -g @bamboo_window_current_fill "all"
-
-set -g @bamboo_status_modules_right "application session user host date_time"
-set -g @bamboo_status_left_separator "█"
-set -g @bamboo_status_right_separator "█"
-
-set -g @bamboo_date_time_text "%Y-%m-%d %H:%M:%S"
-```
-
-### Config 2
-![Default](./assets/config2.png)
-
-```sh
-set -g @bamboo_window_left_separator "█"
-set -g @bamboo_window_right_separator "█ "
-set -g @bamboo_window_number_position "right"
-set -g @bamboo_window_middle_separator "  █"
-
-set -g @bamboo_window_default_fill "number"
-
-set -g @bamboo_window_current_fill "number"
-set -g @bamboo_window_current_text "#{pane_current_path}"
-
-set -g @bamboo_status_modules_right "application session date_time"
-set -g @bamboo_status_left_separator  ""
-set -g @bamboo_status_right_separator " "
-set -g @bamboo_status_right_separator_inverse "yes"
-set -g @bamboo_status_fill "all"
-set -g @bamboo_status_connect_separator "no"
-```
-
-### Config 3
-![Default](./assets/config3.png)
-
-```sh
-set -g @bamboo_window_left_separator ""
-set -g @bamboo_window_right_separator " "
-set -g @bamboo_window_middle_separator " █"
-set -g @bamboo_window_number_position "right"
-
-set -g @bamboo_window_default_fill "number"
-set -g @bamboo_window_default_text "#W"
-
-set -g @bamboo_window_current_fill "number"
-set -g @bamboo_window_current_text "#W"
-
-set -g @bamboo_status_modules_right "directory user host session"
-set -g @bamboo_status_left_separator  " "
-set -g @bamboo_status_right_separator ""
-set -g @bamboo_status_right_separator_inverse "no"
-set -g @bamboo_status_fill "icon"
-set -g @bamboo_status_connect_separator "no"
-
-set -g @bamboo_directory_text "#{pane_current_path}"
-```
-
-[style-guide]: https://github.com/bamboo/bamboo/blob/main/docs/style-guide.md
 
 ## 💝 Thanks to
 
-- [Pocco81](https://github.com/bamboo)
-- [vinnyA3](https://github.com/vinnyA3)
-- [rogeruiz](https://github.com/rogeruiz)
+- [Catppuccin](https://github.com/catppuccin/tmux)
 
-&nbsp;
-
-<p align="center"><img src="https://raw.githubusercontent.com/bamboo/bamboo/main/assets/footers/gray0_ctp_on_line.svg?sanitize=true" /></p>
-<p align="center">Copyright &copy; 2021-present <a href="https://github.com/bamboo" target="_blank">Bamboo Org</a>
-<p align="center"><a href="https://github.com/bamboo/bamboo/blob/main/LICENSE"><img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=MIT&logoColor=d9e0ee&colorA=363a4f&colorB=b7bdf8"/></a></p>
 
