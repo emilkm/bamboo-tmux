@@ -33,10 +33,10 @@ If you do not have a patched font installed, you can override or remove any icon
 ### TPM
 
 1. Install [TPM](https://github.com/tmux-plugins/tpm)
-2. Add the bamboo plugin:
+2. Add the Bamboo plugin:
 
 ```bash
-set -g @plugin 'bamboo/tmux'
+set -g @plugin 'emilkm/bamboo-tmux'
 # ...alongside
 set -g @plugin 'tmux-plugins/tpm'
 ```
@@ -470,8 +470,29 @@ tmux kill-server
 To kill the tmux server and clear all global variables.
 
 
+### Config 1
+![Default](./assets/config1.png)
 
+```sh
+set -g @bamboo_window_left_separator ""
+set -g @bamboo_window_right_separator " "
+set -g @bamboo_window_middle_separator " █"
+set -g @bamboo_window_number_position "right"
+set -g @bamboo_window_default_fill "number"
+set -g @bamboo_window_default_text "#W"
+set -g @bamboo_window_current_fill "number"
+set -g @bamboo_window_current_text "#W#{?window_zoomed_flag,(),}"
+set -g @bamboo_status_modules_right "directory meetings date_time"
+set -g @bamboo_status_modules_left "session"
+set -g @bamboo_status_left_separator  " "
+set -g @bamboo_status_right_separator " "
+set -g @bamboo_status_right_separator_inverse "no"
+set -g @bamboo_status_fill "icon"
+set -g @bamboo_status_connect_separator "no"
+set -g @bamboo_directory_text "#{b:pane_current_path}"
+set -g @bamboo_date_time_text "%H:%M"
 
+```
 ## 💝 Thanks to
 
 - [Catppuccin](https://github.com/catppuccin/tmux)
